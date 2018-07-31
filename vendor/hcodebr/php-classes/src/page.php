@@ -45,6 +45,7 @@ public function setTpl($name, $data = array(), $returnHTML = false){
 
   return $this->tpl->draw($name, $returnHTML);
 
+
 }
 
   public function __destruct(){
