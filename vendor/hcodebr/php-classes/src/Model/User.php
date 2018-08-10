@@ -5,36 +5,32 @@ namespace Hcode\Model;
 use \Hcode\DB\Sql;
 use \Hcode\Model;
 use \Hcode\Mailer;
-
+//use \Hcode\Encryption;
 class User extends Model{
 
   const SESSION = "User";
   const SECRET = "HcodePhp7_Secret";
 
-  public static function login($login, $password){
+  public static function login($login, $password)
+	{
+		$sql = new Sql();
+		$results = $sql->select("SELECT * FROM tb_users WHERE deslogin = :LOGIN", array(
+			":LOGIN"=>$login
+		));
+		if (count($results) === 0)
+		{
+			throw new \Exception("Usuário inexistente ou senha inválida.");
+		}
+		$data = $results[0];
 
-    $sql = new Sql();
-
-    $results = $sql->select("SELECT * FROM tb_users WHERE deslogin = :LOGIN", array(
-      ":LOGIN"=>$login
-    ));
-
-    if(count($results) === 0){
-      throw new \Exception("Usuário inexistente ou senha inválida.");
-    }
-
-    $data = $results[0];
-
-    if(password_verify($password, $data["despassword"]) === true){
-      $user = new User();
-
-      $user->setData($data);
-
-      $_SESSION[User::SESSION] = $user->getValues();
-
-      return $user;
-
-    }else {
+		if (password_verify($password, $data["despassword"]) === true)
+		{
+			$user = new User();
+			//$data['desperson'] = utf8_encode($data['desperson']);
+			$user->setData($data);
+			$_SESSION[User::SESSION] = $user->getValues();
+			return $user;
+		} else {
       throw new \Exception("Usuário inexistente ou senha inválida.");
     }
 
@@ -56,6 +52,7 @@ class User extends Model{
     }
 
   }
+
 
 public static function logout(){
   $_SESSION[User::SESSION] = NULL;
@@ -151,6 +148,11 @@ public static function getForgot($email, $inadmin = true)
              } else {
                  $link = "http://localhost/forgot/reset?code=$result";
              }
+             //==============================================================================
+              /*$code = Encryption::Encrypt($dataRecovery['idrecovery']);
+               $pathLevel = ($data['inadmin'] === true) ? 'admin/' : '';
+               $link = "http://localhost/admin/{$pathLevel}forgot/reset?code={$code}";*/
+               //============================================================================
              $mailer = new Mailer($data['desemail'], $data['desperson'], "Redefinir senha da Hcode Store", "forgot", array(
                  "name"=>$data['desperson'],
                  "link"=>$link
@@ -167,6 +169,7 @@ public static function getForgot($email, $inadmin = true)
      $code = mb_substr($result, openssl_cipher_iv_length('aes-256-cbc'), null, '8bit');
      $iv = mb_substr($result, 0, openssl_cipher_iv_length('aes-256-cbc'), '8bit');;
      $idrecovery = openssl_decrypt($code, 'aes-256-cbc', User::SECRET, 0, $iv);
+     //$idrecovery = Encryption::Decrypt($code);
      $sql = new Sql();
      $results = $sql->select("SELECT *
          FROM tb_userspasswordsrecoveries a
@@ -186,6 +189,7 @@ public static function getForgot($email, $inadmin = true)
      else
      {
          return $results[0];
+         exit;
      }
  }
 
@@ -202,7 +206,7 @@ public static function getForgot($email, $inadmin = true)
    $sql = new Sql();
    $sql->query("UPDATE tb_users SET despassword = :password WHERE iduser = :iduser", array(
      ":password"=>$password,
-     ":iduser"=>$this->getisuser()
+     ":iduser"=>$this->getiduser()
    ));
  }
 

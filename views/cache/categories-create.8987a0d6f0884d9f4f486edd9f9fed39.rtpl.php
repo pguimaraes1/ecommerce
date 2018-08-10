@@ -1,0 +1,90 @@
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Cadastro de Processos
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="/admin/categories">Categorias</a></li>
+    <li class="active"><a href="/admin/categories/create">Cadastrar</a></li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="row">
+  	<div class="col-md-12">
+  		<div class="box box-success">
+        <div class="box-header with-border">
+          <h3 class="box-title">Nova Categoria</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" action="/admin/categories/create" method="post">
+          <div class="box-body">
+            <div class="form-group">
+              <label for="descategory">Categoria</label>
+              <input type="text" class="form-control" id="descategory" name="descategory" placeholder="Digite o nome da categoria">
+            </div>
+<!--
+            <div class="form-group">
+              <label for="#">Ano do Contrato</label>
+              <input type="date" class="form-control" id="descategory" name="descategory" placeholder="Digite o nome da categoria">
+            </div>
+
+            <div class="form-group">
+              <label for="#">Descrição do Contrato (Objeto)</label>
+              <textarea type="text" class="form-control" placeholder="Digite a descrição do contrato" rows="5"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="#">Gestor</label>
+              <input type="text" class="form-control" id="descategory" name="descategory" placeholder="Digite o nome do gestor">
+            </div>
+            <div class="form-group">
+              <label for="#">E-mail Interessado</label>
+              <input type="email" class="form-control" id="descategory" name="descategory" placeholder="Digite o e-mail do setor responsável">
+            </div>
+            <div class="form-group">
+              <label for="#">E-mail Gestor</label>
+              <input type="email" class="form-control" id="descategory" name="descategory" placeholder="Digite o nome do gestor interessado">
+            </div>
+            <div class="form-group">
+              <label for="#">Empresa do Serviço</label>
+              <input type="text" class="form-control" id="descategory" name="descategory" placeholder="Digite o nome da empresa contratada">
+            </div>
+            <div class="form-group">
+              <label for="#">E-mail da Empresa</label>
+              <input type="email" class="form-control" id="descategory" name="descategory" placeholder="Digite o e-mail da empresa contratada">
+            </div>
+            <div class="form-group">
+              <label for="#">Valor Contrato Original</label>
+              <input type="text" class="form-control" id="descategory" name="descategory" placeholder="Digite o valor do contrato">
+            </div>
+            <div class="form-group">
+              <label for="#">Data de Inicio do Contrato</label>
+              <input type="date" class="form-control" id="descategory" name="descategory" placeholder="Informe a data de início do contrato">
+            </div>
+            <div class="form-group">
+              <label for="#">Data do fim do contrato</label>
+              <input type="date" class="form-control" id="descategory" name="descategory" placeholder="Informe a data do fim do contrato">
+            </div>
+          -->
+
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer">
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+  	</div>
+  </div>
+
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
